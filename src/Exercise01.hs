@@ -31,5 +31,9 @@ digitToEo 7 = "sep"
 digitToEo 8 = "ok"
 digitToEo 9 = "nau"
 
+{-WETT-}
+
 numberToEo :: Integer -> String
 numberToEo n = undefined
+
+{-TTEW-}
