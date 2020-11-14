@@ -29,7 +29,7 @@ dominion tournament i = tournament !! (i - 1)
 
 {-H2.2a)-}
 dominators :: [[Int]] -> Int -> [Int]
-dominators tournament i = undefined
+dominators tournament i = [x | x <- players tournament, i `elem` dominion tournament (x-1)]
 
 {-H2.2b)-}
 covers :: [[Int]] -> Int -> Int-> Bool
