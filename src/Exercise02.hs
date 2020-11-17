@@ -37,8 +37,9 @@ covers tournament i j =  null [x | x <- dominion tournament j,  x `notElem` domi
 
 {-2.2c)-}
 dominant :: [[Int]] -> [Int] -> Bool
-dominant tournament xs = undefined
-
+dominant tournament xs = not (null xs) && length xs == length [x | x <- xs, checkDom x]
+            where checkDom pl = null [x | x <- players tournament \\ xs, x `notElem` dominion tournament pl]
+            
 {-WETT-}
 
 {-H2.2d)-}
