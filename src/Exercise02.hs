@@ -47,7 +47,8 @@ copeland tournament = [pl | pl <- players tournament, length (dominion tournamen
             where maxDomSize = maximum [length (dominion tournament x)| x <- players tournament]
 {-H2.2e)-}
 uncoveredSet :: [[Int]] -> [Int]
-uncoveredSet tournament = undefined
+uncoveredSet tournament = [pl | pl <- players tournament, isUncovered pl]
+            where isUncovered i = null [x | x <-players tournament, covers tournament x i]
        
 {-H2.2f)-} 
 topCycle :: [[Int]] -> [Int]
