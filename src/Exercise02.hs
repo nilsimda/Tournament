@@ -6,7 +6,7 @@ import Data.Ord
 {-H2.1a)-}
 twoThirdsAverageWinners :: [(String, Int)] -> [String]
 twoThirdsAverageWinners gs = [x | (x,y) <- gs, abs (twoThirdAvg - y) == minGuess]
-            where minGuess = minimum [twoThirdAvg - guess | (name, guess) <- gs]
+            where minGuess = minimum [abs (twoThirdAvg - snd g)| g <- gs]
                   twoThirdAvg = div (2 * div (sum (map snd gs)) (length gs)) 3
 
 {-H2.1b)-}
