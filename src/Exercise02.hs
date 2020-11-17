@@ -5,7 +5,9 @@ import Data.Ord
 
 {-H2.1a)-}
 twoThirdsAverageWinners :: [(String, Int)] -> [String]
-twoThirdsAverageWinners gs = undefined
+twoThirdsAverageWinners gs = [x | (x,y) <- gs, abs (twoThirdAvg - y) == minGuess]
+            where minGuess = minimum [twoThirdAvg - guess | (name, guess) <- gs]
+                  twoThirdAvg = div (2 * div (sum (map snd gs)) (length gs)) 3
 
 {-H2.1b)-}
 lowestUniqueBidder :: [(String, Int)] -> String
@@ -37,7 +39,7 @@ covers tournament i j =  null [x | x <- dominion tournament j,  x `notElem` domi
 
 {-2.2c)-}
 dominant :: [[Int]] -> [Int] -> Bool
-dominant tournament xs = not (null xs) && length xs == length [x | x <- xs, checkDom x]
+dominant tournament xs = not (null xs) && and [checkDom x | x <- xs]
             where checkDom pl = null [x | x <- players tournament \\ xs, x `notElem` dominion tournament pl]
             
 {-WETT-}
