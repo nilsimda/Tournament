@@ -64,7 +64,7 @@ uncoveredSet tournament = [pl | pl <- players tournament, isUncovered pl]
        
 {-H2.2f)-} 
 topCycle :: [[Int]] -> [Int]
-topCycle tournament = undefined
+topCycle tournament = shortest [x |  x <- subsequences (players tournament), dominant tournament x]
 
 {-TTEW-}
 
