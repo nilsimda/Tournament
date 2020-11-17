@@ -43,8 +43,8 @@ dominant tournament xs = undefined
 
 {-H2.2d)-}
 copeland :: [[Int]] -> [Int]
-copeland tournament = undefined
-
+copeland tournament = [pl | pl <- players tournament, length (dominion tournament pl) == maxDomSize]
+            where maxDomSize = maximum [length (dominion tournament x)| x <- players tournament]
 {-H2.2e)-}
 uncoveredSet :: [[Int]] -> [Int]
 uncoveredSet tournament = undefined
