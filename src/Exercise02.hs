@@ -5,9 +5,14 @@ import Data.Ord
 
 {-H2.1a)-}
 twoThirdsAverageWinners :: [(String, Int)] -> [String]
-twoThirdsAverageWinners gs = [x | (x,y) <- gs, abs (twoThirdAvg - y) == minGuess]
-            where minGuess = minimum [abs (twoThirdAvg - snd g)| g <- gs]
-                  twoThirdAvg = div (2 * div (sum (map snd gs)) (length gs)) 3
+twoThirdsAverageWinners gs = [x | (x,y) <- gs, abs (twoThirdAvg gs - fromIntegral y) ==  minGuess gs]
+
+minGuess :: [(String, Int)] -> Float
+minGuess gs = minimum [abs (twoThirdAvg gs - fromIntegral (snd g))| g <- gs]
+                  
+twoThirdAvg :: [(String, Int)] -> Float
+twoThirdAvg gs = (2 * fromIntegral guessSum / fromIntegral (length gs)) / 3        
+            where guessSum = sum (map snd gs)
 
 {-H2.1b)-}
 lowestUniqueBidder :: [(String, Int)] -> String
