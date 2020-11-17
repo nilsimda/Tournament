@@ -5,18 +5,22 @@ import Data.Ord
 
 {-H2.1a)-}
 twoThirdsAverageWinners :: [(String, Int)] -> [String]
-twoThirdsAverageWinners gs = [x | (x,y) <- gs, abs (twoThirdAvg gs - fromIntegral y) ==  minGuess gs]
+twoThirdsAverageWinners gs = [x | (x,y) <- gs, abs (twoThirdAvg gs - y) ==  minGuess gs]
 
-minGuess :: [(String, Int)] -> Float
-minGuess gs = minimum [abs (twoThirdAvg gs - fromIntegral (snd g))| g <- gs]
+minGuess :: [(String, Int)] -> Int
+minGuess gs = minimum [abs (twoThirdAvg gs - snd g)| g <- gs]
                   
-twoThirdAvg :: [(String, Int)] -> Float
-twoThirdAvg gs = (2 * fromIntegral guessSum / fromIntegral (length gs)) / 3        
+twoThirdAvg :: [(String, Int)] -> Int
+twoThirdAvg gs = floor ((2 * fromIntegral guessSum / fromIntegral (length gs)) / 3)        
             where guessSum = sum (map snd gs)
 
 {-H2.1b)-}
 lowestUniqueBidder :: [(String, Int)] -> String
-lowestUniqueBidder bs = undefined
+lowestUniqueBidder bs = if lowestUniqueBid == -1 then "Nobody" else concat [str | (str, bid) <- bs, bid == lowestUniqueBid]
+            where lowestUniqueBid = if null [y | (x,y) <- bs, count bs y == 1] then -1 else minimum [y | (x,y) <- bs, count bs y == 1]
+
+count :: [(String, Int)] -> Int -> Int
+count bs i = length [x | (x,y) <- bs, y == i]
 
 
 {-H2-}
