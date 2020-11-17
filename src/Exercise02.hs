@@ -48,7 +48,7 @@ copeland tournament = [pl | pl <- players tournament, length (dominion tournamen
 {-H2.2e)-}
 uncoveredSet :: [[Int]] -> [Int]
 uncoveredSet tournament = [pl | pl <- players tournament, isUncovered pl]
-            where isUncovered i = null [x | x <-players tournament, covers tournament x i]
+            where isUncovered i = null (delete i [x | x <-players tournament, covers tournament x i])
        
 {-H2.2f)-} 
 topCycle :: [[Int]] -> [Int]
