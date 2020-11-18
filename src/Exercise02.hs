@@ -17,11 +17,11 @@ twoThirdAvg gs = floor ((2 * fromIntegral guessSum / fromIntegral (length gs)) /
 {-H2.1b)-}
 lowestUniqueBidder :: [(String, Int)] -> String
 lowestUniqueBidder bs = if lowestUniqueBid == -1 then "Nobody" else concat [str | (str, bid) <- bs, bid == lowestUniqueBid]
-            where lowestUniqueBid = if null [y | (x,y) <- bs, count bs y == 1] then -1 else minimum [y | (x,y) <- bs, count bs y == 1]
+            where lowestUniqueBid = if null ls then -1 else minimum ls
+                  ls = [snd b | b <- bs, count bs (snd b) == 1]
 
 count :: [(String, Int)] -> Int -> Int
 count bs i = length [x | (x,y) <- bs, y == i]
-
 
 {-H2-}
 
@@ -55,16 +55,16 @@ dominant tournament xs = not (null xs) && and [checkDom x | x <- xs]
 
 {-H2.2d)-}
 copeland :: [[Int]] -> [Int]
-copeland tournament = [pl | pl <- players tournament, length (dominion tournament pl) == maxDomSize]
-            where maxDomSize = maximum [length (dominion tournament x)| x <- players tournament]
+copeland tournament = [pl | pl <- players tournament, length  (dominion tournament pl) == maxDomSize]
+            where maxDomSize = maximum [length $ dominion tournament x| x <- players tournament]
 {-H2.2e)-}
 uncoveredSet :: [[Int]] -> [Int]
 uncoveredSet tournament = [pl | pl <- players tournament, isUncovered pl]
-            where isUncovered i = null (delete i [x | x <-players tournament, covers tournament x i])
+            where isUncovered i = null $ delete i [x | x <-players tournament, covers tournament x i]
        
 {-H2.2f)-} 
 topCycle :: [[Int]] -> [Int]
-topCycle tournament = shortest [x |  x <- subsequences (players tournament), dominant tournament x]
+topCycle tournament = shortest [x |  x <- subsequences $ players tournament, dominant tournament x]
 
 {-TTEW-}
 
