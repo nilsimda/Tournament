@@ -63,10 +63,8 @@ uncoveredSet tournament = [pl | pl <- players tournament, null $ delete pl [x | 
 
 {-H2.2f)-} 
 topCycle :: [[Int]] -> [Int]
-topCycle tournament =  head [take x (copelandRanking tournament)| x <- players tournament, dominant tournament (take x (copelandRanking tournament))]
-
-copelandRanking :: [[Int]] -> [Int]
-copelandRanking tournament = sortOn (Down . length . dominion tournament) (players tournament)
+topCycle tournament = head [take x copelandRanking| x <- players tournament, dominant tournament (take x copelandRanking)]
+        where copelandRanking = sortOn (Down . length . dominion tournament) (players tournament)      
 
 {-TTEW-}
 
