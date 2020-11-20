@@ -59,14 +59,18 @@ copeland tournament =  filter ((== maximum (map length tournament)) . length . d
 
 {-H2.2e)-}
 uncoveredSet :: [[Int]] -> [Int]
-uncoveredSet tournament = [pl | pl <- players tournament, null $ delete pl [x | x <-players tournament, covers tournament x pl]]
+uncoveredSet tournament = [pl | pl <- players tournament, 1 == length [x | x <-players tournament, covers tournament x pl]]
 
 {-H2.2f)-} 
 topCycle :: [[Int]] -> [Int]
-topCycle tournament = head [take x copelandRanking| x <- players tournament, dominant tournament (take x copelandRanking)]
-        where copelandRanking = sortOn (Down . length . dominion tournament) (players tournament)      
+topCycle tournament = head $ filter (dominant tournament) $ map copelandRanking $ players tournament
+        where copelandRanking i = take i $ sortOn (Down . length . dominion tournament) $ players tournament     
 
 {-TTEW-}
+
+
+
+
 
 
 
