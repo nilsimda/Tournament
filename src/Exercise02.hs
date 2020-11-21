@@ -64,11 +64,8 @@ uncoveredSet tournament = filter (\pl-> 1 == length [x | x <-players tournament,
 
 {-H2.2f)-} 
 topCycle :: [[Int]] -> [Int]
-topCycle tournament = shortest $ filter (dominant tournament) (nub $ concatMap tails $ inits $ sortOn (Down . length . dominion tournament) $ players tournament) 
-
-{-topCycle tournament = head $ filter (dominant tournament) $ map copelandRanking $ players tournament
-        where copelandRanking i = take i $ sortOn (Down . length . dominion tournament) $ players tournament -}    
-
+topCycle tournament = shortest $ filter (dominant tournament) (inits $ sortOn (Down . length . dominion tournament) $ players tournament) 
+  
 
 {-TTEW-}
 
