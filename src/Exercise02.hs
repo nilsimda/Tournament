@@ -51,7 +51,7 @@ dominant :: [[Int]] -> [Int] -> Bool
 dominant tournament xs = not (null xs) && and [checkDom x | x <- xs]
             where checkDom pl = null [x | x <- players tournament \\ xs, x `notElem` dominion tournament pl]
             
-{-WETT-}
+{-WETT-}        
 
 {-H2.2d)-}
 copeland :: [[Int]] -> [Int]
@@ -59,14 +59,20 @@ copeland tournament =  filter ((== maximum (map length tournament)) . length . d
 
 {-H2.2e)-}
 uncoveredSet :: [[Int]] -> [Int]
-uncoveredSet tournament = [pl | pl <- players tournament, 1 == length [x | x <-players tournament, covers tournament x pl]]
+uncoveredSet tournament = filter (\pl-> 1 == length [x | x <-players tournament, covers tournament x pl]) $ players tournament
+        
 
 {-H2.2f)-} 
 topCycle :: [[Int]] -> [Int]
-topCycle tournament = head $ filter (dominant tournament) $ map copelandRanking $ players tournament
-        where copelandRanking i = take i $ sortOn (Down . length . dominion tournament) $ players tournament     
+topCycle tournament = shortest $ filter (dominant tournament) (nub $ concatMap tails $ inits $ sortOn (Down . length . dominion tournament) $ players tournament) 
+
+{-topCycle tournament = head $ filter (dominant tournament) $ map copelandRanking $ players tournament
+        where copelandRanking i = take i $ sortOn (Down . length . dominion tournament) $ players tournament -}    
+
 
 {-TTEW-}
+
+
 
 
 
