@@ -2,6 +2,7 @@ module Exercise02 where
 
 import Data.List
 import Data.Ord
+import Data.Maybe
 
 {-H2.1a)-}
 twoThirdsAverageWinners :: [(String, Int)] -> [String]
@@ -64,7 +65,7 @@ uncoveredSet tournament = filter (\pl-> 1 == length [x | x <-players tournament,
 
 {-H2.2f)-} 
 topCycle :: [[Int]] -> [Int]
-topCycle tournament = shortest $ filter (dominant tournament) (inits $ sortOn (Down . length . dominion tournament) $ players tournament) 
+topCycle tournament = fromJust $ find (dominant tournament) $ inits $ sortOn (Down . length . dominion tournament) $ players tournament
   
 
 {-TTEW-}
