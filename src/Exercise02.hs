@@ -2,7 +2,6 @@ module Exercise02 where
 
 import Data.List
 import Data.Ord
-import Data.Maybe
 
 {-H2.1a)-}
 twoThirdsAverageWinners :: [(String, Int)] -> [String]
@@ -61,13 +60,11 @@ copeland tournament = map succ $ maximum (map length tournament) `elemIndices` m
 {-H2.2e)-}
 uncoveredSet :: [[Int]] -> [Int]
 uncoveredSet tournament = (\pl-> 1 == length [x | x <-players tournament, covers tournament x pl]) `filter` players tournament
-                        
+                          
 
-{-H2.2f)-} 
 topCycle :: [[Int]] -> [Int]
 topCycle tournament = shortest $ filter (dominant tournament) $ inits $ (Down . length . dominion tournament) `sortOn` players tournament 
-                                                                                                                               
-  
+                                                                                                                  
 {-TTEW-}
 
 
