@@ -61,7 +61,7 @@ copeland tournament = map succ $ maximum (map length tournament) `elemIndices` m
 uncoveredSet :: [[Int]] -> [Int]
 uncoveredSet tournament = (\pl-> 1 == length [x | x <-players tournament, covers tournament x pl]) `filter` players tournament
                           
-
+{-H2.2f)-}
 topCycle :: [[Int]] -> [Int]
 topCycle tournament = shortest $ filter (dominant tournament) $ inits $ (Down . length . dominion tournament) `sortOn` players tournament 
                                                                                                                   
