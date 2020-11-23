@@ -56,8 +56,7 @@ dominant tournament xs = not (null xs) && and [checkDom x | x <- xs]
 
 {-H2.2d)-}
 copeland :: [[Int]] -> [Int]
-copeland tournament = filter ((== maximum (map length tournament)) . length . dominion tournament) $ players tournament
-
+copeland tournament = map succ $ maximum (map length tournament) `elemIndices` map length tournament
 
 {-H2.2e)-}
 uncoveredSet :: [[Int]] -> [Int]
